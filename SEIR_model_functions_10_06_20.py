@@ -119,14 +119,9 @@ def SEIR_results(t,N,
                  P_SEVERE,CFR_GA,CFR_ICU,p_ICU,p_sym,D_recovery_asym,D_recovery_mild,D_hospital_lag_GA,D_hospital_lag_ICU,D_recovery_GA,D_recovery_ICU,D_death_GA,D_death_ICU):
     
     # transmission dynamics
-    alpha     = 1/D_incubation # alpha, inverse of incubation time
     gamma = 1/D_infectious # gamma, inverse of infectious time
     gamma_asym = 1/D_infectious_asym # gamma, inverse of infectious time
-    p_severe = P_SEVERE # fraction of symptomatic cases requiring hospitalisation
-    p_mild   = 1 - P_SEVERE # fraction of symptomatic cases not requiring hospitalisation
-    
-    p_fatal_GA  = CFR_GA # fraction of G&A hospitalised cases that lead to death
-    p_fatal_ICU  = CFR_ICU # fraction of ICU hospitalised cases that lead to death
+
     
     # p_ICU is fraction of hospitalised cases where patient visits ICU ward
     # p_sym is the fraction of cases that are symptomatic 

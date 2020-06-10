@@ -899,7 +899,6 @@ if do_scenarios == 1: # 1 to do scenario mapping
     plt.plot(InterventionAmt4_range, scenario_ICU_peak, '-r',linestyle=pred_lines,marker='o') # ICU peak
     plt.hlines(capacity_all, InterventionAmt4_range[0], InterventionAmt4_range[-1], colors='b', linestyles='dashed')
     plt.hlines(capacity_ICU, InterventionAmt4_range[0], InterventionAmt4_range[-1], colors='r', linestyles='dashed')
-    #plt.plot(ICU_capacity, '-r',linestyle=pred_lines) # ICU capacity
     plt.xlabel('proportion of pre-lockdown beta_hat')
     plt.ylabel('Peak hospitalisations (1/6/20 onwards == 2nd peak)')
     plt.legend(['Hospitalised (all)', 'Hospitalised (critical)','Capacity (all)','Capacity (critical)'])
