@@ -150,17 +150,20 @@ def SEIR_results(t,N,
     # PHE = Hospitalised (severe+fatal) + Cumulative Recovered (from severe hospitalised) + Cumulative Deaths (from severe)
     # This assumption is becoming increasingly invalid as the testing becomes wider, covering more patients than solely those who are hospitalised. 
     PHE_equivalent_column = hospitalised_col + x[:,idx_R_hospitalised] + x[:,idx_R_fatal]
-       
-    c0 = 10.7 # polymod study
+    
+    
+    # calculate beta_hat, beta, and c over time
+    c_0 = 10.7 # polymod study
     c_lockdown = 3.1 # https://cmmid.github.io/topics/covid19/comix-impact-of-physical-distance-measures-on-transmission-in-the-UK.html
+    
     beta_hat = np.empty_like(recovered_all_col) # column for beta hat over time
-    beta = np.empty_like(recovered_all_col)
+    beta = np.empty_like(recovered_all_col) # column for beta over time
     c = np.empty_like(recovered_all_col) # column for c over time
     R_t = np.empty_like(recovered_all_col) # column for R_t over time
     for i in range(0,beta_hat.shape[0]):
         if (t[i] > InterventionTime and t[i] <= InterventionTime2): # Mon 16th March - Mon 23rd March - week before lockdown
             beta_hat[i] = (InterventionAmt)*R0*(1/((p_sym/gamma) + ((1-p_sym)/gamma_asym)))
-            c[i] = c0*InterventionAmt
+            c[i] = c_0*InterventionAmt
             beta[i] = beta_hat[i] / c[i]
         elif (t[i] > InterventionTime2 and t[i] <= InterventionTime3): # Mon 23rd March - 29th April - lockdown part 1
             beta_hat[i] = (InterventionAmt2)*R0*(1/((p_sym/gamma) + ((1-p_sym)/gamma_asym)))
@@ -180,10 +183,10 @@ def SEIR_results(t,N,
             c[i] = beta_hat[i] / beta[i]
         else: # Pre government intervention - up to 16th March
             beta_hat[i] = R0*(1/((p_sym/gamma) + ((1-p_sym)/gamma_asym)))
-            c[i] = c0
+            c[i] = c_0
             beta[i] = beta_hat[i] / c[i]
             
-    R_t = beta_hat * (1/((p_sym/gamma) + ((1-p_sym)/gamma_asym)))*( (x[:,idx_I_sym]+x[:,idx_I_asym]) / N)
+    R_t = beta_hat * (1/((p_sym/gamma) + ((1-p_sym)/gamma_asym)))*( (x[:,idx_I_sym]+x[:,idx_I_asym]) / N) # R_t over time - NOT AS EXPECTED-> CHECK
               
     # append new columns to table
     x = np.column_stack((x, recovered_all_col)) # col 13
