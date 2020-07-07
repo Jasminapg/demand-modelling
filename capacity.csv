@@ -1,0 +1,4 @@
+Capacity,hospital,critical
+Current,2300,275
+Surge 1 (planned capacity),2450,420
+Surge 2 (planned + Nightingale),2900,860
